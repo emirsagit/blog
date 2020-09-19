@@ -7,6 +7,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleCreateFormRequest;
+use PhpParser\ErrorHandler\Collecting;
 
 class ArticleController extends Controller
 {
@@ -19,11 +20,13 @@ class ArticleController extends Controller
     {
         if(request('tag'))
         {
-            $articles = Tag::where('name', request('tag'))->firstOrFail()->articles;
-            return view('article.index', compact('articles'));
+            $tag = request('tag');
+            $articles = Tag::where('name', $tag)->firstOrFail()->articles;
+            return view('article.index', compact('articles', 'tag'));
         }
-        $articles = Article::latest()->paginate();
-        return view('article.index', compact('articles'));
+        $articles = Article::with('tags')->latest()->paginate();
+        $tags = $this->getAllUniqueTags($articles);
+        return view('article.index', compact('articles', 'tags'));
     }
 
     /**
@@ -109,4 +112,16 @@ class ArticleController extends Controller
     {
         //
     }
+
+    protected function getAllUniqueTags($articles)
+    {
+        return $articles
+        ->pluck('tags')
+        ->flatten()
+        ->pluck('name')
+        ->unique()
+        ->map(function ($article) {
+            return ucwords($article);
+        });
+    } 
 }

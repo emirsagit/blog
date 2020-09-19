@@ -51,8 +51,8 @@
           <a class="navbar-item">
             Jobs
           </a>
-          <a class="navbar-item">
-            Contact
+          <a class="navbar-item" href="{{ route('contact.index') }}">
+            İletişim
           </a>
           <hr class="navbar-divider">
           <a class="navbar-item">
@@ -60,7 +60,7 @@
           </a>
         </div>
       </div>
-      <a class="navbar-item">
+      <a class="navbar-item" href="{{ route('contact.index') }}">
         İletişim
       </a>
     </div>
