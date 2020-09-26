@@ -48,7 +48,7 @@
                                 <th>Mail Adresi</th>
                                 <th>Telefon</th>
                                 <th>Tarih</th>
-                                <th></th>
+                                <th class="is-pulled-right"></th>
                             </tr>
                         </thead>
                         <tbody>

@@ -15,8 +15,9 @@ class ArticleFactory extends Factory
             'title' => $this->faker->sentence,
             'subtitle' => $this->faker->sentence,
             'body' => $this->faker->paragraph,
-            'user_id' => User::factory(),
             'description' => $this->faker->sentence,
+            'thumbnail' => "https://bulma.io/images/placeholders/800x600.png",
+            'video' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/73LopXka1ao" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
         ];
     }
 }

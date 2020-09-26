@@ -1,15 +1,20 @@
 @extends('layouts.app')
-
 @section('content')
+<style>
+    .icon:hover {
+        fill: black;
+    }
+</style>
 <div class="header-content">
+
     <section class="hero is-light">
         <div class="hero-body">
             <div class="container has-text-centered" style="font-family: 'Rock Salt', cursive;">
                 <h1 class="title is-1 is-spaced">
-                    Bulma Blog
+                    Psikolojik Danışmanlık ve Çocuk Eğitimi
                 </h1>
                 <h3 class="subtitle is-3">
-                    <i>... or something</i>
+                    <i>Merhabalar...</i>
                 </h3>
             </div>
         </div>
@@ -19,105 +24,61 @@
 <!-- this is the main page content -->
 <div class="main-content">
     <div class="container">
-        <div class="columns is-multiline is-centered">
+        <div class="columns is-centered">
             <!-- posts (image length should be 400; height can be whatever) -->
-            <div class="column is-8">
+            <div class="column is-8 is-mobile">
+                @forelse($articles as $article)
                 <div class="post-wrapper">
                     <div class="box">
                         <div class="post-header has-text-centered">
-                            <img src="http://placehold.it/900x600">
-                            <h4 class="title is-4"><a href="#">Some Post</a></h4>
+                            <img src="{{ $article->thumbnail }}">
+                            <h4 class="title is-4"><a
+                                    href="{{ route('article.show', compact('article')) }}">{{ $article->title }}</a>
+                            </h4>
                         </div>
                         <hr />
                         <div class="post-content-short">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales pulvinar
-                                laoreet. Quisque consequat justo velit, at aliquam ex aliquet eu. Nulla facilisi.
-                                Vivamus ac nibh congue, faucibus purus sit amet, malesuada est. Mauris fringilla
-                                vulputate libero, et interdum purus sollicitudin vel.</p>
+                            @if ($article->subtitle)
+                            <p>{{$article->subtitle}}</p>
+                            @else
+                            <p>{{ Str::limit($article->body, 100) }}</p>
+                            @endif
                             <div class="continue-reading has-text-centered">
-                                <a class="button is-primary is-outlined">Continue Reading</a>
+                                <a class="button is-primary is-outlined"
+                                    href="{{ route('article.show', compact('article')) }}">Okumaya
+                                    devam edin</a>
                             </div>
                             <div class="post-content-details">
                                 <div class="is-pulled-left">
-                                    <i>November 28, 2017 by <a>Author</a></i>
+                                    <i>{{ $article->created_at->diffForHumans() }}
+                                        <a href="#">#{{ $article->author->name }}</a>
+                                    </i>
                                 </div>
                                 <div class="is-pulled-right">
-                                    <a>#blog</a> <a>#me</a> <a>#fun</a>
+                                    @foreach ($article->tags as $tag)
+                                    <a>#{{ $tag->name }}</a>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                @empty
 
                 <div class="post-wrapper">
                     <div class="box">
                         <div class="post-header has-text-centered">
-                            <img src="http://placehold.it/900x600">
-                            <h4 class="title is-4"><a href="#">Some Post</a></h4>
-                        </div>
-                        <hr />
-                        <div class="post-content-short">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales pulvinar
-                                laoreet. Quisque consequat justo velit, at aliquam ex aliquet eu. Nulla facilisi.
-                                Vivamus ac nibh congue, faucibus purus sit amet, malesuada est. Mauris fringilla
-                                vulputate libero, et interdum purus sollicitudin vel.</p>
-                            <div class="continue-reading has-text-centered">
-                                <a class="button is-primary is-outlined">Continue Reading</a>
-                            </div>
-                            <div class="post-content-details">
-                                <div class="is-pulled-left">
-                                    <i>November 28, 2017 by <a>Author</a></i>
-                                </div>
-                                <div class="is-pulled-right">
-                                    <a>#blog</a> <a>#me</a> <a>#fun</a>
-                                </div>
-                            </div>
+                            Henüz makale bulunmamaktadır.
                         </div>
                     </div>
                 </div>
-
-                <div class="post-wrapper">
-                    <div class="box">
-                        <div class="post-header has-text-centered">
-                            <img src="http://placehold.it/900x600">
-                            <h4 class="title is-4"><a href="#">Some Post</a></h4>
-                        </div>
-                        <hr />
-                        <div class="post-content-short">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales pulvinar
-                                laoreet. Quisque consequat justo velit, at aliquam ex aliquet eu. Nulla facilisi.
-                                Vivamus ac nibh congue, faucibus purus sit amet, malesuada est. Mauris fringilla
-                                vulputate libero, et interdum purus sollicitudin vel.</p>
-                            <div class="continue-reading has-text-centered">
-                                <a class="button is-primary is-outlined">Continue Reading</a>
-                            </div>
-                            <div class="post-content-details">
-                                <div class="is-pulled-left">
-                                    <i>November 28, 2017 by <a>Author</a></i>
-                                </div>
-                                <div class="is-pulled-right">
-                                    <a>#blog</a> <a>#me</a> <a>#fun</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
                 <!-- posts should end here -->
 
                 <!-- pagination under posts -->
                 <div class="section">
                     <nav class="pagination is-medium is-centered">
-                        <a class="pagination-previous" disabled>Previous</a>
-                        <a class="pagination-next">Next</a>
-                        <ul class="pagination-list">
-                            <li><a class="pagination-link">1</a></li>
-                            <li><span class="pagination-ellipsis">&hellip;</span></li>
-                            <li><a class="pagination-link">45</a></li>
-                            <li><a class="pagination-link is-current">46</a></li>
-                            <li><a class="pagination-link">47</a></li>
-                            <li><span class="pagination-ellipsis">&hellip;</span></li>
-                            <li><a class="pagination-link">86</a></li>
-                        </ul>
+                        {{$articles->links()}}
                     </nav>
                 </div>
                 <!-- end of pagination -->
@@ -125,18 +86,19 @@
             <!-- end of posts column -->
 
             <!-- sidebar with plugins/details/etc -->
-            <div class="column is-4 is-narrow">
+            <div class="column is-4 is-narrow is-mobile">
                 <div class="card-wrapper">
                     <div class="card">
                         <header class="card-header-fix-center has-text-centered">
                             <p class="card-header-title-fix">
-                                About
+                                Hakkımızda
                             </p>
                         </header>
                         <div class="card-content">
                             <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                                <a>@bulmaio</a>. <a>#css</a> <a>#responsive</a>
+                                Amacımız sizlerin sorunlarını modern psikolojik yöntemlerden yararlanarak bir nebze de
+                                olsun hafifletmek, danışanlarımıza yaşadıkları benzer olaylar hakkında kendilerinin
+                                yalnız olmadığını hissettirerek çözümler sunmaktır.
                             </div>
                         </div>
                     </div>
@@ -144,35 +106,83 @@
 
                 <div class="card-wrapper">
                     <div class="card">
+                        <header class="card-header-fix-center has-text-centered">
+                            <p class="card-header-title-fix">
+                                Kurucularımız
+                            </p>
+                        </header>
+                        @forelse ($admins as $admin)
+                        @if ($admin->thumbnail)
                         <div class="card-image">
                             <figure class="image is-4by3">
-                                <img src="http://bulma.io/images/placeholders/1280x960.png" alt="Image">
+                                <img class="is-rounded" src="{{ $admin->thumbnail }}" alt="{{ $admin->name }}">
                             </figure>
                         </div>
+                        @endif
+
                         <div class="card-content">
                             <div class="media">
-                                <div class="media-left">
-                                    <figure class="image is-48x48">
-                                        <img src="http://bulma.io/images/placeholders/96x96.png" alt="Image">
-                                    </figure>
-                                </div>
                                 <div class="media-content">
-                                    <p class="title is-4">John Smith</p>
-                                    <p class="subtitle is-6">@johnsmith</p>
+                                    <p class="title is-4">{{ $admin->name }}</p>
+                                    <div class="columns is-mobile">
+                                        @if($admin->facebook)
+                                        <a class="navbar-item is-tab">
+                                            <span class="icon">
+                                                <img src="/img/facebook.svg" alt="facebook" class="image is-24x24">             
+                                            </span>
+                                        </a>
+                                        @endif
+                                        @if($admin->instagram)
+                                        <a class="navbar-item is-tab">
+                                            <span class="icon">
+                                                <img src="/img/instagram.svg" alt="instagram" class="image is-24x24">             
+                                            </span>
+                                        </a>
+                                        @endif
+                                        @if($admin->twitter)
+                                        <a class="navbar-item is-tab">
+                                            <span class="icon">
+                                                <img src="/img/twitter.svg" alt="twitter" class="image is-24x24">             
+                                            </span>
+                                        </a>
+                                        @endif
+                                        @if($admin->linkedin)
+                                        <a class="navbar-item is-tab">
+                                            <span class="icon">
+                                                <img src="/img/linkedin.svg" alt="linkedin" class="image is-24x24">             
+                                            </span>
+                                        </a>
+                                        @endif
+                                        @if($admin->github)
+                                        <a class="navbar-item is-tab">
+                                            <span class="icon">
+                                                <img src="/img/github.svg" alt="github" class="image is-24x24">             
+                                            </span>
+                                        </a>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                                <a>#css</a> <a>#responsive</a>
-                                <small>11:09 PM - 1 Jan 2016</small>
+                                <p>{{ $admin->about }}</p>
+                                @if($admin->interests)
+                                <h5>Uzmanlık Alanları: </h5>
+                                @foreach ($admin->interests as $interest)
+                                <span class="tag is-danger is-light">{{ $interest }}</span>
+                                @endforeach
+
+                                @endif
                             </div>
                         </div>
+                        <hr>
+                        @empty
+                        Yönetici bulamadık...
+                        @endforelse
                     </div>
                 </div>
 
-                <div class="card-wrapper">
+                {{-- <div class="card-wrapper">
                     <div class="card">
                         <header class="card-header-fix-center has-text-centered">
                             <p class="card-header-title-fix">
@@ -181,13 +191,16 @@
                         </header>
                         <div class="card-content">
                             <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis
+                                mauris.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis
+                                mauris.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis
+                                mauris.
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- end of plugins/etc/ column -->
 
             </div>

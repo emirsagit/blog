@@ -89,6 +89,7 @@
 
                     <div class="field">
                         <label class="label">Etiketler <span class="tag is-light">ctrl'ye basarak istediğiniz kadar seçebilirsiniz</span></label>
+                    
                         <div class="control select is-multiple">
                             <select name="tags[]" multiple size="8">
                                 @foreach ($tags as $tag)

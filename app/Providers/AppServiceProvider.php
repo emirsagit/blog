@@ -28,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Article::creating(function($article){
             $article->slug=Str::slug($article->title);
         });
+        \App\Models\Tag::creating(function($tag){
+            $tag->slug=Str::slug($tag->name);
+        });
         //pagination view
         Paginator::defaultView('vendor/pagination/bulma');
         Paginator::defaultSimpleView('vendor/pagination/bulma');

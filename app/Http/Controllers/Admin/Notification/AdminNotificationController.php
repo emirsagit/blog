@@ -13,33 +13,32 @@ class AdminNotificationController extends Controller
     //yoksa navigation kısımında doğru sonucu göstermiyor
     public function index()
     {
-        $user = User::where('email', env('MAIL_CONTACT_TO'))->with('notifications')->firstOrFail();
-        $unreadNotifications = $user->unreadNotifications;
-        $user->notifications->markasRead();
+        $user = auth()->user();
         $notifications = $user->notifications()->paginate(10);
-        return view('admin.notification.index', compact('user', 'notifications', 'unreadNotifications'));
+        return view('admin.notification.index', compact('user', 'notifications'));
     }
 
     public function show(Request $request)
     {
-        //unread notifications'a globalde erişilecek. Authantication tanımlandığında...
-
-        $user = User::where('id', $request->user)->with('notifications')->firstOrFail();
+        $user = auth()->user();
         $notification = $user->notifications()
-            ->where('id', $request->notification) // and/or ->where('type', $notificationType)
+            ->where('id', $request->notification) 
             ->first();
+            if(!$notification->read_at) {
+                $notification->markAsRead();
+            }
         return view('admin.notification.show', compact('notification'));
     }
 
     public function destroy(Request $request)
     {
-        $user = User::where('id', $request->user)->with('notifications')->firstOrFail();
+        $user = auth()->user();
         $user->notifications()
-            ->where('id', $request->notification) // and/or ->where('type', $notificationType)
+            ->where('id', $request->notification) 
             ->first()
             ->delete();
         return redirect()->back()->with([
-            'message' => 'Bildirim başarılyla silindi'
+            'status' => 'Bildirim başarılyla silindi'
         ]);
     }
 }

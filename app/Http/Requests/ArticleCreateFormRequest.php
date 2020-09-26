@@ -22,6 +22,9 @@ class ArticleCreateFormRequest extends FormRequest
             'title' => 'required',
             'body' => 'required',
             'tags' => 'exists:tags,id',
+            'thumbnail' => 'file|image|max:1999',
+            'seo_title' => 'max:65',
+            'seo_description' => 'max:160',
         ];
     }
 }

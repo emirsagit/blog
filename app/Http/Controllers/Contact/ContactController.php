@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Contact;
 
 
+use App\Models\Role;
 use App\Models\User;
 use App\Mail\ContactEmail;
 use App\Http\Controllers\Controller;
@@ -20,11 +21,11 @@ class ContactController extends Controller
 
     public function store(ContactRequest $request)
     {
-        // Mail::to(env('MAIL_CONTACT_TO'))->send(new ContactEmail($request));
-        $user = User::where('email', env('MAIL_CONTACT_TO'))->firstOrFail();
-        Notification::send($user ,new ContactNotification($request));
+        $roleSuperAdmin = Role::where('name', 'superAdmin')->first();
+        $users = User::where('role_id',$roleSuperAdmin->id)->get();
+        Notification::send($users ,new ContactNotification($request));
         return redirect()->back()->with([
-            'message' => 'Mesajınız iletildi'
+            'status' => 'Mesajınız iletildi'
         ]);
     } 
 }

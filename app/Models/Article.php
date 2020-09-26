@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Article extends Model
@@ -16,7 +17,7 @@ class Article extends Model
     }
 
     protected $fillable = [
-        'title', 'body', 'thumbnail', 'subtitle', 'description', 'user_id'
+        'title', 'body', 'thumbnail', 'subtitle', 'description', 'user_id', 'seo_title', 'video'
     ];
 
     public function author()
@@ -29,4 +30,26 @@ class Article extends Model
         return $this->belongsToMany(Tag::class)
             ->withTimestamps();
     }
+
+    public function fileUpload($file)
+    {
+        $name = $file->getClientOriginalName();
+        $filename = pathinfo($name, PATHINFO_FILENAME);
+        $extension = $file->extension();
+        $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+        $file->storeAs('img', $fileNameToStore);
+        Storage::delete($this->thumbnail);
+        $this->thumbnail = "/storage/img/" . $fileNameToStore;
+    } 
+
+    public function fileCreate($file)
+    {
+        $name = $file->getClientOriginalName();
+        $filename = pathinfo($name, PATHINFO_FILENAME);
+        $extension = $file->extension();
+        $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+        $file->storeAs('img', $fileNameToStore);
+        return $fileNameToStore;
+    } 
+    
 }

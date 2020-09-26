@@ -7,7 +7,7 @@
 
 <body>
     @include('../partials._navigation')
-    @if ( session('message'))
+    @if ( session('status'))
     @include('../partials._sessionMessage')
     @endif
     @yield('content')

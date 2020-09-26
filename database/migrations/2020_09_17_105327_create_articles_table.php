@@ -21,7 +21,9 @@ class CreateArticlesTable extends Migration
             $table->text('subtitle')->nullable();
             $table->text('body');
             $table->string('thumbnail')->nullable();
+            $table->string('video')->nullable();
             $table->string('description')->nullable();
+            $table->string('seo_title')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

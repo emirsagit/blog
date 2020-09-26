@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        'App\User' => 'App\Policies\UserUpdateable',
     ];
 
     /**
@@ -23,8 +23,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
-
-        //
+        //it is a dynamic make it easy to work with minimum gate.
+        Gate::before(function ($user, $role) {
+            if ($user->getAllRoles()->contains($role)) {
+                return true;
+            }
+        });
     }
 }

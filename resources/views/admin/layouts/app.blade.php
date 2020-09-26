@@ -3,12 +3,13 @@
 
 <head>
     @include('../admin/partials._head')
+    @yield('head')
 </head>
 
 <body>
     <div id="app">
     @include('../admin/partials._navigation')
-    @if ( session('message'))
+    @if ( session('status'))
     @include('../admin/partials._sessionMessage')
     @endif
     @include('../admin/partials._sidebar')
@@ -16,6 +17,7 @@
     @include('../admin/partials._footer')
     </div>
     @include('../admin/partials._modal')
+    @yield('script')
 </body>
 
 </html>

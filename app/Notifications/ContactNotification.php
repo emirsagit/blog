@@ -37,7 +37,7 @@ class ContactNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new ContactEmail($this->request))->to(env('MAIL_CONTACT_TO'));
+        return (new ContactEmail($this->request))->to($notifiable->email);
     }
 
     /**

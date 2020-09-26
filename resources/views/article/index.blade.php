@@ -73,7 +73,7 @@
                                 <div class="tags are-medium">
                                     @foreach ($tags as $tag)
                                     <a href="{{ route('article.index', compact('tag')) }}"
-                                        class="tag is-link">{{ $tag }}</a>
+                                        class="tag is-link">{{ $tag->name }}</a>
                                     @endforeach
                                 </div>
                             </div>

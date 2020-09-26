@@ -27,6 +27,5 @@ class ContactEmail extends Mailable
         return $this->markdown('contact/email')
         ->subject("{$this->request->name} size bir mesaj gönderdi")
         ->replyTo($this->request->email);
-        ;
     }
 }

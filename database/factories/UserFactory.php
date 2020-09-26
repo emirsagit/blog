@@ -28,6 +28,16 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'thumbnail' => "https://bulma.io/images/placeholders/128x128.png",
+            'about' => $this->faker->sentence,
+            'tel' => $this->faker->phoneNumber,
+            'address' => $this->faker->address,
+            'interests' => $this->faker->words($nb = 3, $asText = false),
+            'instagram' => "https://www.instagram.com/",
+            'facebook' => "https://www.facebook.com/",
+            'linkedin' => "https://www.linkedin.com/",
+            'twitter' => "https://www.twitter.com/",
+            'github' => "https://www.github.com/",
         ];
     }
 }
