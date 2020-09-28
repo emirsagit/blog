@@ -49,6 +49,7 @@ class ContactNotification extends Notification
     public function toArray($notifiable)
     {
         return [
+            'status' => "iletisim-formu",
             'name' => $this->request->name,
             'email' => $this->request->email,
             'tel' => $this->request->tel,

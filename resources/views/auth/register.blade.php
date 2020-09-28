@@ -38,6 +38,15 @@
                         </div>
 
                         <div class="field">
+                            <label class="label">Kullanıcı Adı</label>
+                            <div class="control">
+                                <input class="input @error('username') is-danger @enderror" type="text" placeholder="Kulanıcı Adı"
+                                    name="username" value="{{ old('username') }}">
+                            </div>
+                            @error('username')<p class="has-text-danger">{{ $message }}</p>@enderror
+                        </div>
+
+                        <div class="field">
                             <label class="label">E-Posta Adresi</label>
                             <div class="control">
                                 <input class="input @error('email') is-danger @enderror" type="email"
@@ -57,9 +66,9 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Şifre</label>
+                            <label class="label">Şifre Onayı</label>
                             <div class="control">
-                                <input id="password-confirm" class="input" type="password" placeholder="şifre"
+                                <input id="password-confirm" class="input" type="password" placeholder="şifrenizi tekrar girin"
                                     name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>

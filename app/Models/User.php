@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Role;
 use App\Models\Article;
+use Illuminate\Support\Arr;
+use Hamcrest\Arrays\IsArray;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
@@ -14,13 +16,17 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id', 'thumbnail', 'about', 'tel', 'address', 'interests', 'instagram', 'facebook', 'linkedin', 'twitter', 'github'
+        'name', 'email', 'password', 'role_id', 'thumbnail', 'about', 'tel', 'address', 'interests', 'instagram', 'facebook', 'linkedin', 'twitter', 'github', 'username'
     ];
 
     protected $hidden = [
@@ -40,6 +46,10 @@ class User extends Authenticatable
     public function getInterestsAttribute($value)
     {
         return $value === null ? $value : explode(',', $value);
+        // if (! $value) {
+        //     return $value;
+        // }
+        // return Arr::wrap($value);   
     }
 
     public function articles()
@@ -56,15 +66,13 @@ class User extends Authenticatable
     {
         // if user have superadmin role adding admin and author role to this user make it easy to work. Otherwise 
         // we must have belongstoMany relationship and define more gates or policies 
-        if ($this->role) {
-            $roles = collect($this->role->name);
-            if ($roles->contains('superAdmin')) {
-                $roles->push('admin', 'author');
-            } elseif ($roles->contains('admin')) {
-                $roles->push('author');
-            }
-            return $roles;
+        $roles = collect($this->role->name);
+        if ($roles->contains('superAdmin')) {
+            $roles->push('admin', 'author');
+        } elseif ($roles->contains('admin')) {
+            $roles->push('author');
         }
+        return $roles;
     }
 
     public function updateUser($request)

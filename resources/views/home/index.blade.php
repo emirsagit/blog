@@ -31,32 +31,32 @@
                 <div class="post-wrapper">
                     <div class="box">
                         <div class="post-header has-text-centered">
-                            <img src="{{ $article->thumbnail }}">
+                            <img src="{{ $article->thumbnail }}" loading="lazy" alt="{{ $article->title }}">
                             <h4 class="title is-4"><a
                                     href="{{ route('article.show', compact('article')) }}">{{ $article->title }}</a>
                             </h4>
                         </div>
+                        
                         <hr />
                         <div class="post-content-short">
                             @if ($article->subtitle)
                             <p>{{$article->subtitle}}</p>
                             @else
-                            <p>{{ Str::limit($article->body, 100) }}</p>
+                            <p>{{ Str::limit($article->body, 200) }}</p>
                             @endif
                             <div class="continue-reading has-text-centered">
                                 <a class="button is-primary is-outlined"
                                     href="{{ route('article.show', compact('article')) }}">Okumaya
                                     devam edin</a>
                             </div>
+                            <i><a href="{{ route('article.index', ['user' => $article->author]) }}">#{{ $article->author->name }}</a></i>
                             <div class="post-content-details">
                                 <div class="is-pulled-left">
-                                    <i>{{ $article->created_at->diffForHumans() }}
-                                        <a href="#">#{{ $article->author->name }}</a>
-                                    </i>
+                                    <i>{{ $article->created_at->diffForHumans() }}</i>
                                 </div>
                                 <div class="is-pulled-right">
                                     @foreach ($article->tags as $tag)
-                                    <a>#{{ $tag->name }}</a>
+                                    <a href="{{ route('article.index', compact('tag')) }}">#{{ $tag->name }}</a>
                                     @endforeach
                                 </div>
                             </div>
@@ -112,69 +112,7 @@
                             </p>
                         </header>
                         @forelse ($admins as $admin)
-                        @if ($admin->thumbnail)
-                        <div class="card-image">
-                            <figure class="image is-4by3">
-                                <img class="is-rounded" src="{{ $admin->thumbnail }}" alt="{{ $admin->name }}">
-                            </figure>
-                        </div>
-                        @endif
-
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-content">
-                                    <p class="title is-4">{{ $admin->name }}</p>
-                                    <div class="columns is-mobile">
-                                        @if($admin->facebook)
-                                        <a class="navbar-item is-tab">
-                                            <span class="icon">
-                                                <img src="/img/facebook.svg" alt="facebook" class="image is-24x24">             
-                                            </span>
-                                        </a>
-                                        @endif
-                                        @if($admin->instagram)
-                                        <a class="navbar-item is-tab">
-                                            <span class="icon">
-                                                <img src="/img/instagram.svg" alt="instagram" class="image is-24x24">             
-                                            </span>
-                                        </a>
-                                        @endif
-                                        @if($admin->twitter)
-                                        <a class="navbar-item is-tab">
-                                            <span class="icon">
-                                                <img src="/img/twitter.svg" alt="twitter" class="image is-24x24">             
-                                            </span>
-                                        </a>
-                                        @endif
-                                        @if($admin->linkedin)
-                                        <a class="navbar-item is-tab">
-                                            <span class="icon">
-                                                <img src="/img/linkedin.svg" alt="linkedin" class="image is-24x24">             
-                                            </span>
-                                        </a>
-                                        @endif
-                                        @if($admin->github)
-                                        <a class="navbar-item is-tab">
-                                            <span class="icon">
-                                                <img src="/img/github.svg" alt="github" class="image is-24x24">             
-                                            </span>
-                                        </a>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="content">
-                                <p>{{ $admin->about }}</p>
-                                @if($admin->interests)
-                                <h5>Uzmanlık Alanları: </h5>
-                                @foreach ($admin->interests as $interest)
-                                <span class="tag is-danger is-light">{{ $interest }}</span>
-                                @endforeach
-
-                                @endif
-                            </div>
-                        </div>
+                        <x-author-partial :author="$admin"/>
                         <hr>
                         @empty
                         Yönetici bulamadık...
@@ -182,26 +120,7 @@
                     </div>
                 </div>
 
-                {{-- <div class="card-wrapper">
-                    <div class="card">
-                        <header class="card-header-fix-center has-text-centered">
-                            <p class="card-header-title-fix">
-                                Something
-                            </p>
-                        </header>
-                        <div class="card-content">
-                            <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis
-                                mauris.
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis
-                                mauris.
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis
-                                mauris.
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
-                <!-- end of plugins/etc/ column -->
+                <x-category-partial :tags="$tags"/>
 
             </div>
         </div>

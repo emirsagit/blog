@@ -14,6 +14,7 @@ class ArticleFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'subtitle' => $this->faker->sentence,
+            'user_id' => User::factory(),
             'body' => $this->faker->paragraph,
             'description' => $this->faker->sentence,
             'thumbnail' => "https://bulma.io/images/placeholders/800x600.png",

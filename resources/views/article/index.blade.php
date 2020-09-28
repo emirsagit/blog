@@ -19,7 +19,10 @@
 <!-- this is the main page content -->
 <div class="main-content">
     <div class="container">
-        <div class="columns is-mobile">
+        <div class="columns">
+            <div class="column is-3 is-narrow">
+                <x-category-partial :tags="$tags" />
+            </div>
             <!-- posts (image length should be 400; height can be whatever) -->
             <div class="column is-9">
                 <div class="columns is-multiline">
@@ -29,17 +32,20 @@
                             <div class="has-text-centered">
                                 <div class="post-header">
                                     <a href="{{ route('article.show', compact('article')) }}">
-                                        <img src="http://placehold.it/900x600">
+                                        @if ($article->thumbnail)
+                                        <img src="{{ $article->thumbnail }}" alt="{{$article->name}}" loading="lazy">
+                                        @endif
                                         <h4 class="is-size-4 is-hoverable">{{ $article->title }}</h4s>
                                     </a>
                                 </div>
                             </div>
                             <div class="end-post-details">
                                 <div class="is-pulled-left">
-                                    <i>{{ $article->updated_at }}<a>Author</a></i>
+                                    <i>{{ $article->updated_at->diffForHumans() }}</i>
                                 </div>
                                 <div class="is-pulled-right">
-                                    <a>#blog</a> <a>#me</a> <a>#fun</a>
+                                    <a
+                                        href="{{ route('user.show', ['user' => $article->author]) }}">{{ $article->author->name }}</a>
                                 </div>
                             </div>
                             <hr />
@@ -59,47 +65,6 @@
                     @endforelse
                 </div>
             </div>
-            @isset($tags)
-            <div class="column is-3 is-narrow">
-                <div class="card-wrapper">
-                    <div class="card">
-                        <header class="card-header-fix-center has-text-centered">
-                            <p class="card-header-title-fix">
-                                Kategoriler
-                            </p>
-                        </header>
-                        <div class="card-content">
-                            <div class="content">
-                                <div class="tags are-medium">
-                                    @foreach ($tags as $tag)
-                                    <a href="{{ route('article.index', compact('tag')) }}"
-                                        class="tag is-link">{{ $tag->name }}</a>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @else
-            <div class="column is-3 is-narrow">
-                <div class="card-wrapper">
-                    <div class="card">
-                        <header class="card-header-fix-center has-text-centered">
-                            <p class="card-header-title-fix">
-                                {{ $tag }}
-                            </p>
-                        </header>
-                        <div class="card-content">
-                            <div class="content">
-                                <p>Konusu hakkında yazılan yazılarımız gösterilmektedir.</p>
-                                <a class="is-link" href="{{ route('article.index') }}">Diğer Kategoriler</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endisset
         </div>
     </div>
     <!-- end of main page content -->

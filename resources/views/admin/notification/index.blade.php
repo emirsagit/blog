@@ -46,7 +46,7 @@
                             <tr>
                                 <th>İsim</th>
                                 <th>Mail Adresi</th>
-                                <th>Telefon</th>
+                                <th>Kaynak</th>
                                 <th>Tarih</th>
                                 <th class="is-pulled-right"></th>
                             </tr>
@@ -56,7 +56,7 @@
                             <tr>
                                 <td data-label="Name">{{ $notification->data['name'] }}</td>
                                 <td data-label="Company">{{ $notification->data['email'] }} </td>
-                                <td data-label="City">{{ $notification->data['tel'] }} </td>
+                                <td data-label="Company">{{ $notification->data['status'] }} </td>
                                 <td data-label="City">{{ $notification->created_at->diffForHumans() }} </td>
                                 <td class="is-actions-cell">
                                     <div class="buttons is-right">
@@ -91,7 +91,7 @@
                             <tr>
                                 <th>İsim</th>
                                 <th>Mail Adresi</th>
-                                <th>Telefon</th>
+                                <th>Kaynak</th>
                                 <th>Tarih</th>
                                 <th></th>
                             </tr>
@@ -101,7 +101,7 @@
                             <tr>
                                 <td data-label="Name">{{ $notification->data['name'] }}</td>
                                 <td data-label="Company">{{ $notification->data['email'] }} </td>
-                                <td data-label="City">{{ $notification->data['tel'] }} </td>
+                                <td data-label="Company">{{ $notification->data['status'] }} </td>
                                 <td data-label="City">{{ $notification->created_at->diffForHumans() }} </td>
                                 <td class="is-actions-cell">
                                     <div class="buttons is-right">

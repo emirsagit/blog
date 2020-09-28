@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         //it is a dynamic make it easy to work with minimum gate.
         Gate::before(function ($user, $role) {
+            if (! $user->role) {
+                return false;
+            }
             if ($user->getAllRoles()->contains($role)) {
                 return true;
             }

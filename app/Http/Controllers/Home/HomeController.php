@@ -12,7 +12,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $role = Role::where('name', 'superAdmin')->first();
+        $role = Role::where('name', 'superAdmin')->firstOrFail();
         $admins = User::where('role_id', $role->id)->get()->shuffle();
         $articles = Article::with('tags', 'author')->latest()->paginate(5);
         return view('home.index', compact('articles', 'admins'));

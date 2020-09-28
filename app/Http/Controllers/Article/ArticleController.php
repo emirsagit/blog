@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Article;
 
 use App\Models\Tag;
+use App\Models\User;
 use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ArticleCreateFormRequest;
 use PhpParser\ErrorHandler\Collecting;
+use App\Http\Requests\ArticleCreateFormRequest;
 
 class ArticleController extends Controller
 {
@@ -16,34 +18,42 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Tag $tag)
+    public function index()
     {
-        if(request('tag'))
+        if($requestTag = request('tag'))
         {
-            $articles = $tag->articles()->get();
+            $tag = Tag::where('slug', $requestTag)->firstOrFail();
+            $articles = $tag->articles()->with('tags')->get();
             return view('article.index', compact('articles', 'tag'));
+        } 
+        elseif (request('user'))
+        {
+            $user = User::where('username', request('user'))->firstOrFail();
+            $articles = $user->articles()->with('tags')->get();
+            return view('article.index', compact('articles', 'user'));
         }
-        $articles = Article::with('tags')->latest()->paginate();
-        $tags = $this->getAllUniqueTags($articles);
-        return view('article.index', compact('articles', 'tags'));
+        $articles = Article::with('tags', 'author')->latest()->paginate();
+        return view('article.index', compact('articles'));
     }
 
 
     public function show(Article $article)
     {
-        return view('article.show', compact('article'));
+        $article = $article->load('author');
+        $comments = $article->comments()->where('comment_id', null)->with('children', 'user', 'children.user')->latest()->get();
+        return view('article.show', compact('article', 'comments'));
     }
 
 
-    protected function getAllUniqueTags($articles)
-    {
-        return $articles
-        ->pluck('tags')
-        ->flatten()
-        ->pluck('name')
-        ->unique()
-        ->map(function ($article) {
-            return ucwords($article);
-        });
-    } 
+    // protected function getAllUniqueTags($articles)
+    // {
+    //     return $articles
+    //     ->pluck('tags')
+    //     ->flatten()
+    //     ->pluck('name')
+    //     ->unique()
+    //     ->map(function ($article) {
+    //         return ucwords($article);
+    //     });
+    // } 
 }

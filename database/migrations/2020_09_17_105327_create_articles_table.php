@@ -20,7 +20,7 @@ class CreateArticlesTable extends Migration
             $table->string('slug');
             $table->text('subtitle')->nullable();
             $table->text('body');
-            $table->string('thumbnail')->nullable();
+            $table->string('thumbnail')->default('/img/default.jpg')->nullable();
             $table->string('video')->nullable();
             $table->string('description')->nullable();
             $table->string('seo_title')->nullable();

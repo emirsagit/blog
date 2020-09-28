@@ -60,6 +60,9 @@
       <a class="navbar-item" href="{{ route('contact.index') }}">
         İletişim
       </a>
+      <a class="navbar-item" href="{{ route('user.index') }}">
+        Yazarlar
+      </a>
     </div>
 
     <div class="navbar-end">

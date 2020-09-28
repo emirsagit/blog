@@ -1,14 +1,12 @@
 <!-- footer begins here -->
-<div class="footer footer-top-shadow">
-    <div class="container has-text-centered">
-  <div class="nav-center">
-    <a class="nav-item" href="http://github.com/plasticneko">
-      <span class="icon">
-        <i class="fa fa-github"></i>
-      </span>
-    </a>
+<div class="footer footer-top-shadow" style="padding: 2rem 1rem 3rem !important">
+  <div class="content has-text-centered">
+      <p>
+        Created By <a href="https://github.com/emirsagit">Emir Sağıt</a> 
+        <br>
+        <a href="mailto:webmaster@example.com">Email</a><br>
+        <a href="https://wa.me/905511623997">Whatsapp</a><br>
+      </p>
   </div>
-  <p>template by <a href="http://github.com/plasticneko">github.com/plasticneko</a></p>
-    </div>
-  </div>
-  <!-- footer end here -->    
+</div>
+<!-- footer end here -->

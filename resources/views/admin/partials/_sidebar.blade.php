@@ -32,7 +32,7 @@
     <p class="menu-label">Diğer Sayfalar</p>
     <ul class="menu-list">
       <li>
-        <a href="{{ route('user.index') }}" class="has-icon">
+        <a href="{{ route('admin.user.index') }}" class="has-icon">
           <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
           <span class="menu-item-label">Misafir Üyeler</span>
         </a>
