@@ -2,18 +2,8 @@
 
 @section('content')
 
-<section class="section is-title-bar">
-    <div class="level">
-        <div class="level-left">
-            <div class="level-item">
-                <ul>
-                    <li>Admin</li>
-                    <li>Dashboard</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+<x-admin-header />
+
 <section class="section is-main-section">
     @if(count($unreadNotifications) > 0)
     <div class="notification is-info">
@@ -48,7 +38,7 @@
                                 <th>Mail Adresi</th>
                                 <th>Kaynak</th>
                                 <th>Tarih</th>
-                                <th class="is-pulled-right"></th>
+                                <th class="is-pulled-right">Düzenle / Sil</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -30,8 +30,7 @@ class AdminUserController extends Controller
     public function update(User $user, UserUpdateFormRequest $request)
     {
         $this->authorize('admin');
-
-        if (auth()->user()->id === $this->id) {
+        if (auth()->user()->id === $user->id) {
             abort(403, 'Bu bölümden kendi profilinizde değişiklik yapamazsınız. Değişiklik için lütfen hesabım bölümünü kullanın...');
         }
 

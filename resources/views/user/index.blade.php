@@ -1,20 +1,14 @@
 @extends('layouts.app')
 
+@section('head')
+<title>{{ $setting->authorSeoTitle }}</title>
+<meta name="description" content="{{ $setting->authorSeoDescription }}">
+@endsection
+
 @section('content')
-<div class="header-content">
-    <section class="hero is-light">
-        <div class="hero-body">
-            <div class="container has-text-centered" style="font-family: 'Rock Salt', cursive;">
-                <h1 class="title is-1 is-spaced">
-                    Bulma Blog
-                </h1>
-                <h3 class="subtitle is-3">
-                    <i>... or something</i>
-                </h3>
-            </div>
-        </div>
-    </section>
-</div>
+
+<x-title-partial :title="$setting->authorTitle" :subtitle="$setting->authorSubtitle" />
+
 
 <!-- this is the main page content -->
 <div class="main-content">

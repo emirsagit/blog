@@ -41,7 +41,7 @@
                 <p class="control is-expanded has-icons-left has-icons-right">
                     <input class="input @error('password') is-danger @enderror" name="password" type="password"
                         placeholder="Şifrenizi değiştirin">
-                    <span class="icon is-small is-left"><i class="mdi mdi-mail"></i></span>
+                    <span class="icon is-small is-left"><i class="mdi mdi-pass"></i></span>
                 </p>
             </div>
             @error('password') <span class="has-text-danger">{{ $message }}</span> @enderror
@@ -49,37 +49,37 @@
     </div>
 
     <hr>
-    @if ($user->id != auth()->user()->id)        
+    @if ($user->id != auth()->user()->id)
     <div class="field has-check is-horizontal">
         <div class="field-label"><label class="label">Yetki</label></div>
         <div class="field-body">
             <div class="field">
                 @can('superAdmin')
                 <div class="field is-grouped-multiline is-grouped">
-                    <div class="control"><label class="b-radio radio"><input type="radio" name="role"
-                                value="guest" @if(!$user->role_id) checked @endif>
+                    <div class="control"><label class="b-radio radio"><input type="radio" name="role" value="guest"
+                                @if(!$user->role_id) checked @endif>
                             <span class="check"></span>
                             <span class="control-label">Misafir</span>
                         </label>
                     </div>
-                    <div class="control"><label class="b-radio radio"><input type="radio" name="role"
-                                value="author" @if(isset($user->role) && $user->role->name === 'author')
+                    <div class="control"><label class="b-radio radio"><input type="radio" name="role" value="author"
+                                @if(isset($user->role) && $user->role->name === 'author')
                             checked
                             @endif>
                             <span class="check"></span>
                             <span class="control-label">Yazar</span>
                         </label>
                     </div>
-                    <div class="control"><label class="b-radio radio"><input type="radio" name="role"
-                                value="admin" @if(isset($user->role) && $user->role->name === 'admin')
+                    <div class="control"><label class="b-radio radio"><input type="radio" name="role" value="admin"
+                                @if(isset($user->role) && $user->role->name === 'admin')
                             checked
                             @endif>
                             <span class="check"></span>
-                            <span class="control-label">Yönetici</span>
+                            <span class="control-label">Editör</span>
                         </label>
                     </div>
-                    <div class="control"><label class="b-radio radio"><input type="radio" name="role"
-                                value="superAdmin" @if(isset($user->role) && $user->role->name ===
+                    <div class="control"><label class="b-radio radio"><input type="radio" name="role" value="superAdmin"
+                                @if(isset($user->role) && $user->role->name ===
                             'superAdmin') checked
                             @endif>
                             <span class="check"></span>
@@ -89,14 +89,14 @@
                 </div>
                 @else
                 <div class="field is-grouped-multiline is-grouped">
-                    <div class="control"><label class="b-radio radio"><input type="radio" name="role"
-                                value="guest" @if(!$user->role_id) checked @endif>
+                    <div class="control"><label class="b-radio radio"><input type="radio" name="role" value="guest"
+                                @if(!$user->role_id) checked @endif>
                             <span class="check"></span>
                             <span class="control-label">Misafir</span>
                         </label>
                     </div>
-                    <div class="control"><label class="b-radio radio"><input type="radio" name="role"
-                                value="author" @if(isset($user->role) && $user->role->name === 'author')
+                    <div class="control"><label class="b-radio radio"><input type="radio" name="role" value="author"
+                                @if(isset($user->role) && $user->role->name === 'author')
                             checked
                             @endif>
                             <span class="check"></span>
@@ -126,7 +126,7 @@
         </div>
     </div>
 
-    @php 
+    @php
     if ($user->interests) {
     $interests = implode(",", $user->interests);
     }
@@ -312,3 +312,25 @@
         </div>
     </div>
 </div>
+
+
+@section('script')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+  // 1. Display file name when select file
+  let fileInput = document.querySelector('.file.has-name')
+    let input = fileInput.querySelector('.file-input')
+    let name = fileInput.querySelector('.file-name')
+    let image = fileInput.querySelector('.is-rounded')
+    input.addEventListener('change', () => {
+      let files = input.files
+      if (files.length === 0) {
+        name.innerText = 'No file selected'
+      } else {
+        name.innerText = files[0].name
+        image.src = URL.createObjectURL(files[0]);
+      }
+    })
+})
+</script>
+@endsection

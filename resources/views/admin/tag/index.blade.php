@@ -2,18 +2,8 @@
 
 @section('content')
 
-<section class="section is-title-bar">
-    <div class="level">
-        <div class="level-left">
-            <div class="level-item">
-                <ul>
-                    <li>Admin</li>
-                    <li>Dashboard</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+<x-admin-header />
+
 <section class="section is-main-section">
     <div class="card has-table">
         <header class="card-header">
@@ -22,7 +12,7 @@
                 Taglar
             </p>
             <p class="card-header-icon" aria-label="more options">
-               <a class="button is-info" href="{{ route('tag.create') }}">Tag Oluştur</a>
+               <a class="button is-info" href="{{ route('tag.create') }}">Kategori Oluştur</a>
             </p>
         </header>
         <div class="card-content">

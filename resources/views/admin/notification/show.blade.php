@@ -2,18 +2,8 @@
 
 @section('content')
 
-<section class="section is-title-bar">
-    <div class="level">
-        <div class="level-left">
-            <div class="level-item">
-                <ul>
-                    <li>Admin</li>
-                    <li>Dashboard</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+<x-admin-header />
+
 <section class="section is-main-section">
     @if ($notification->data['status'] === "iletisim-formu")
     <div class="card">

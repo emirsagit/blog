@@ -1,25 +1,17 @@
 @extends('layouts.app')
+
+@section('head')
+<title>{{ $setting->homeSeoTitle }}</title>
+<meta name="description" content="{{ $setting->homeSeoDescription }}">
+@endsection
+
 @section('content')
 <style>
     .icon:hover {
         fill: black;
     }
 </style>
-<div class="header-content">
-
-    <section class="hero is-light">
-        <div class="hero-body">
-            <div class="container has-text-centered" style="font-family: 'Rock Salt', cursive;">
-                <h1 class="title is-1 is-spaced">
-                    Psikolojik Danışmanlık ve Çocuk Eğitimi
-                </h1>
-                <h3 class="subtitle is-3">
-                    <i>Merhabalar...</i>
-                </h3>
-            </div>
-        </div>
-    </section>
-</div>
+<x-title-partial :title="$setting->homeTitle" :subtitle="$setting->homeSubtitle"/>
 
 <!-- this is the main page content -->
 <div class="main-content">
@@ -87,22 +79,22 @@
 
             <!-- sidebar with plugins/details/etc -->
             <div class="column is-4 is-narrow is-mobile">
+                @isset($setting->about)
                 <div class="card-wrapper">
                     <div class="card">
                         <header class="card-header-fix-center has-text-centered">
                             <p class="card-header-title-fix">
-                                Hakkımızda
+                                {{ $setting->aboutTitle }}
                             </p>
                         </header>
                         <div class="card-content">
                             <div class="content">
-                                Amacımız sizlerin sorunlarını modern psikolojik yöntemlerden yararlanarak bir nebze de
-                                olsun hafifletmek, danışanlarımıza yaşadıkları benzer olaylar hakkında kendilerinin
-                                yalnız olmadığını hissettirerek çözümler sunmaktır.
+                                {{ $setting->about }}
                             </div>
                         </div>
                     </div>
                 </div>
+                @endisset
 
                 <div class="card-wrapper">
                     <div class="card">

@@ -1,34 +1,13 @@
 <!-- this is the top navigation -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    @isset($setting->logo)
+    <a class="navbar-item" href="{{ route('index') }}">
+      <img src="{{ $setting->logo }}" alt="logo" class="is-3by1" style="min-height: 3rem">
     </a>
-    <a class="navbar-item is-tab" href="#">
-      <span class="icon">
-        <img src="/img/facebook.svg" alt="facebook" class="image is-18x18">
-      </span>
-    </a>
-    <a class="navbar-item is-tab" href="#">
-      <span class="icon">
-        <img src="/img/instagram.svg" alt="instagram" class="image is-18x18">
-      </span>
-    </a>
-    <a class="navbar-item is-tab" href="#">
-      <span class="icon">
-        <img src="/img/twitter.svg" alt="twitter" class="image is-18x18">
-      </span>
-    </a>
-    <a class="navbar-item is-tab" href="#">
-      <span class="icon">
-        <img src="/img/linkedin.svg" alt="linkedin" class="image is-18x18">
-      </span>
-    </a>
-    <a class="navbar-item is-tab" href="#">
-      <span class="icon">
-        <img src="/img/github.svg" alt="github" class="image is-18x18">
-      </span>
-    </a>
+    @endisset
+    <x-social-media-partial />
+
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
       data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
@@ -41,9 +20,6 @@
     <div class="navbar-start">
       <a class="navbar-item" href="{{ route('index') }}">
         Anasayfa
-      </a>
-      <a class="navbar-item">
-        Hakkımızda
       </a>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link" href="{{ route('article.index') }}">
@@ -78,9 +54,16 @@
         </div>
         @endguest
         @auth
-        <a class="navbar-item" href="{{ route('contact.index') }}">
-          {{ auth()->user()->name }}
-        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="{{ route('me.index') }}">
+            {{ auth()->user()->name }}
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="{{ route('me.index') }}">
+              Hesap Bilgilerim
+            </a>
+          </div>
+        </div>
         <form action="{{ route('logout') }}" method="POST">
           @csrf
           <button class="button is-light" type="submit" name="logout">
@@ -94,3 +77,31 @@
 </nav>
 
 <!-- end of top navigation -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+// Get all "navbar-burger" elements
+const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+// Check if there are any navbar burgers
+if ($navbarBurgers.length > 0) {
+
+  // Add a click event on each of them
+  $navbarBurgers.forEach( el => {
+    el.addEventListener('click', () => {
+
+      // Get the target from the "data-target" attribute
+      const target = el.dataset.target;
+      const $target = document.getElementById(target);
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      el.classList.toggle('is-active');
+      $target.classList.toggle('is-active');
+
+    });
+  });
+}
+
+});
+</script>

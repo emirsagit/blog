@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Article;
 
+use App\File\File;
 use App\Models\Tag;
 use App\Models\Article;
 use App\Http\Controllers\Controller;
@@ -45,7 +46,9 @@ class AdminArticleController extends Controller
         }
 
         if ($request->file('thumbnail')) {
-            $article->fileUpload($request->file('thumbnail'));
+            $file = new File($request->file('thumbnail'), $article->thumbnail);
+            $file->deleteFile("/img/default.jpg");
+            $article->thumbnail = $file->uploadFile();
         }
 
         if ($request->tags) {
@@ -72,7 +75,6 @@ class AdminArticleController extends Controller
     public function store(ArticleCreateFormRequest $request)
     {
         $user = auth()->user();
-
         if ($request->file('thumbnail')) {
             $fileNameToStore = $article->fileCreate($request->file('thumbnail'));
         }

@@ -31,6 +31,7 @@ class UserUpdateFormRequest extends FormRequest
                 Rule::unique('users')->ignore(request()->user)
             ],
             'name' => 'required|min:3|string',
+            'thumbnail' => 'nullable|max:1999',
             'tel' => 'numeric|nullable|min:10'
         ];
     }

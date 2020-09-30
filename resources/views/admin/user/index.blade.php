@@ -2,18 +2,8 @@
 
 @section('content')
 
-<section class="section is-title-bar">
-    <div class="level">
-        <div class="level-left">
-            <div class="level-item">
-                <ul>
-                    <li>Admin</li>
-                    <li>Dashboard</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+<x-admin-header />
+
 <section class="section is-main-section">
     <div class="card has-table">
         <header class="card-header">
@@ -46,10 +36,10 @@
                                 <td class="is-actions-cell">
                                     <div class="buttons is-right">
                                         <a class="button is-small is-primary"
-                                            href="{{ route('user.show', ['user' => $user]) }}" type="button">
+                                            href="{{ route('admin.user.show', ['user' => $user]) }}" type="button">
                                             <span class="icon"><i class="mdi mdi-eye"></i></span>
                                         </a>
-                                        <form action="{{ route('user.destroy', ['user' => $user] ) }}" method="POST">
+                                        <form action="{{ route('admin.user.destroy', ['user' => $user] ) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="button is-small is-danger jb-modal" type="submit">

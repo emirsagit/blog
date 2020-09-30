@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\File\File;
 use App\Models\Role;
 use App\Models\Article;
 use Illuminate\Support\Arr;
@@ -81,14 +82,17 @@ class User extends Authenticatable
         $this->isInRequestandSet($columns, $request);
         $this->password = $request->password ? Hash::make($request->password) : $this->password;
         if ($request->file('thumbnail')) {
-            $this->fileUpload($request->file('thumbnail'));
+            $file = new File($request->file('thumbnail'), $this->thumbnail, "img/users/");
+            $file->deleteFile("/img/noimage.png");
+            $this->thumbnail = $file->uploadFile();
         }
-        //
-        if (!$request->role) {
+        //me'den işlem yapıyorsak ya da role değişikliği yoksa
+        if (! $request->role) {
             $this->save();
             return;
         }
 
+        //me den işlem yapıyorsak kötü niyetli üye için
         if ($this->id === auth()->user()->id) {
             $this->save();
             return;
@@ -103,17 +107,6 @@ class User extends Authenticatable
         $role = Role::where('name', $request->role)->firstOrFail();
         $this->role_id = $role->id;
         $this->save();
-    }
-
-    public function fileUpload($file)
-    {
-        $name = $file->getClientOriginalName();
-        $filename = pathinfo($name, PATHINFO_FILENAME);
-        $extension = $file->extension();
-        $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-        $file->storeAs('img/users', $fileNameToStore);
-        Storage::delete($this->thumbnail);
-        $this->thumbnail = "/storage/img/users/" . $fileNameToStore;
     }
 
     public function isInRequestandSet($columns, $request)

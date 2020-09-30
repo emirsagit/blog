@@ -40,7 +40,7 @@
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
         </a>
         <div class="navbar-dropdown">
-          <a href="{{ route('me.index') }}" class="navbar-item">
+          <a href="{{ route('admin.me.index') }}" class="navbar-item">
             <span class="icon"><i class="mdi mdi-account"></i></span>
             <span>Hesabım</span>
           </a>

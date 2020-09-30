@@ -1,20 +1,24 @@
+@php
+if(isset($tag)) {
+$setting->categoryTitle = $tag->name;
+$setting->categorySubtitle = "konusundaki içerikleri görüntülüyorsunuz.";
+$setting->categorySeoTitle = $tag->name . " konusunda yeni bilgiler";
+$setting->categorySeoDescription = $tag->name . " konusunda kalema alınan güncel ve şaşırtıcı bilgiler için tıklayın.";
+}elseif (isset($user)) {
+$setting->categoryTitle = $user->name;
+$setting->categorySubtitle = "tarafından kaleme alınan içerikleri görüntülüyorsunuz.";
+$setting->categorySeoTitle = $user->name . " tarafından yazılan yazılar";
+$setting->categorySeoDescription = $user->name . " tarafından kaleme alınan güncel ve şaşırtıcı bilgiler için
+tıklayın.";
+}
+@endphp
 @extends('layouts.app')
-
+@section('head')
+<title>{{ $setting->categorySeoTitle }}</title>
+<meta name="description" content="{{ $setting->categorySeoDescription }}">
+@endsection
 @section('content')
-<div class="header-content">
-    <section class="hero is-light">
-        <div class="hero-body">
-            <div class="container has-text-centered" style="font-family: 'Rock Salt', cursive;">
-                <h1 class="title is-1 is-spaced">
-                    Bulma Blog
-                </h1>
-                <h3 class="subtitle is-3">
-                    <i>... or something</i>
-                </h3>
-            </div>
-        </div>
-    </section>
-</div>
+<x-title-partial :title="$setting->categoryTitle" :subtitle="$setting->categorySubtitle" />
 
 <!-- this is the main page content -->
 <div class="main-content">

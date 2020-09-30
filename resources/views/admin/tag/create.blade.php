@@ -3,34 +3,8 @@
 
 @section('content')
 <!-- this is the main page content -->
-<section class="section is-title-bar">
-    <div class="level">
-        <div class="level-left">
-            <div class="level-item">
-                <ul>
-                    <li>Admin</li>
-                    <li>Dashboard</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="hero is-hero-bar">
-    <div class="hero-body">
-        <div class="level">
-            <div class="level-left">
-                <div class="level-item">
-                    <h1 class="title">
-                        Aşağıdaki bilgilerde değişiklik yapabilirsiniz
-                    </h1>
-                </div>
-            </div>
-            <div class="level-right" style="display: none;">
-                <div class="level-item"></div>
-            </div>
-        </div>
-    </div>
-</section>
+<x-admin-header />
+
 <div class="main-content mt-4">
     <div class="container">
         <div class="columns is-multiline is-centered">
@@ -42,12 +16,12 @@
                         <header class="card-header">
                             <p class="card-header-title">
                                 <span class="icon"><i class="mdi mdi-ballot"></i></span>
-                                Tag Oluşturun
+                                Kategori Oluşturun
                             </p>
                         </header>
                         <hr>
                         <div class="field">
-                            <label class="label">Tag Adı</label>
+                            <label class="label">Kategori Adı</label>
                             <div class="control">
                                 <input class="input @error('name') is-danger @enderror" type="text"
                                     placeholder="Başlık" name="name" value=" {{ old('name') }}">

@@ -21,18 +21,6 @@ class Article extends Model
         'title', 'body', 'thumbnail', 'subtitle', 'description', 'user_id', 'seo_title', 'video'
     ];
 
-    public function fileUpload($file)
-    {
-        $name = $file->getClientOriginalName();
-        $filename = pathinfo($name, PATHINFO_FILENAME);
-        $extension = $file->extension();
-        $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-        $file->storeAs('img', $fileNameToStore);
-        if ($this->thumbnail != "/img/default.jpg") {
-            Storage::delete($this->thumbnail);
-        }
-        $this->thumbnail = "/storage/img/" . $fileNameToStore;
-    }
 
     public function fileCreate($file)
     {

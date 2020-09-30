@@ -34,7 +34,7 @@ class AdminAuthorController extends Controller
     {
         $this->authorize('admin');
 
-        if (auth()->user()->id === $this->id) {
+        if (auth()->user()->id === $author->id) {
             abort(403, 'Bu bölümden kendi profilinizde değişiklik yapamazsınız. Değişiklik için lütfen hesabım bölümünü kullanın...');
         }
 

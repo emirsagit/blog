@@ -1,20 +1,12 @@
 @extends('layouts.app')
 
+@section('head')
+<title>{{ $article->seo_title }}</title>
+<meta name="description" content="{{ $article->description }}">
+@endsection
+
 @section('content')
-<div class="header-content">
-    <section class="hero is-light">
-        <div class="hero-body">
-            <div class="container has-text-centered" style="font-family: 'Rock Salt', cursive;">
-                <h1 class="title is-1 is-spaced">
-                    Bulma Blog
-                </h1>
-                <h3 class="subtitle is-3">
-                    <i>... or something</i>
-                </h3>
-            </div>
-        </div>
-    </section>
-</div>
+<x-title-partial :title="$article->title"/>
 
 <!-- this is the main page content -->
 <div class="main-content">
@@ -26,7 +18,6 @@
                     <div class="has-text-centered">
                         <div class="post-header">
                             <img src="{{ $article->thumbnail }}" loading="lazy" alt="{{ $article->title }}">
-                            <h4 class="title is-4 is-spaced">{{ $article->title }}</h4>
                             @if($article->subtitle)<h5 class="subtitle is-5"><i>{{ $article->subtitle }}</i></h5>@endif
                             <hr />
                         </div>
