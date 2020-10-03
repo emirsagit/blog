@@ -7,10 +7,12 @@ use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class Article extends Model
 {
     use HasFactory;
+    use Searchable;
 
     public function getRouteKeyName()
     {

@@ -6,9 +6,14 @@
 @endsection
 
 @section('content')
-<x-title-partial :title="$article->title"/>
+<x-title-partial :title="$article->title" />
 
 <!-- this is the main page content -->
+
+<script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+<script src="/js/search.js"></script>
 <div class="main-content">
     <div class="container">
         <div class="columns is-multiline is-centered">
@@ -27,11 +32,12 @@
                     </div>
                     <div class="end-post-details">
                         <div class="is-pulled-left">
-                            <i>{{ $article->updated_at->diffForHumans() }}<a class="pl-4" href="{{ route('article.index', ['user' => $article->author]) }}">{{ $article->author->name }}</a></i>
+                            <i>{{ $article->updated_at->diffForHumans() }}<a class="pl-4"
+                                    href="{{ route('article.index', ['user' => $article->author]) }}">{{ $article->author->name }}</a></i>
                         </div>
                         <div class="is-pulled-right">
                             @foreach ($article->tags as $tag)
-                            <a href="{{ route('article.index', ['tag' => $tag]) }}">#{{ $tag->name }}</a> 
+                            <a href="{{ route('article.index', ['tag' => $tag]) }}">#{{ $tag->name }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -45,10 +51,10 @@
                     </div>
                 </div>
                 <!-- post should end here -->
-         
+
                 <!-- comments section -->
-                <x-comments-partial :article="$article" :comments="$comments"/>
-                <!-- comments should end here --> 
+                <x-comments-partial :article="$article" :comments="$comments" />
+                <!-- comments should end here -->
 
             </div>
             <!-- end of post column -->
@@ -57,7 +63,7 @@
             <div class="column is-4 is-narrow">
                 <div class="card-wrapper">
                     <div class="card">
-                        <x-author-partial :author="$article->author"/>
+                        <x-author-partial :author="$article->author" />
                     </div>
                 </div>
 

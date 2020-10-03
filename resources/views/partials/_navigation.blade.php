@@ -7,7 +7,6 @@
     </a>
     @endisset
     <x-social-media-partial />
-
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
       data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
@@ -18,6 +17,21 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
+      <div class="navbar-item is-hidden-touch">
+        <form method="POST" action="{{ route('article.search') }}">
+          @csrf
+          <div class="field has-addons">
+            <div class="control">
+              <input class="input is-small" type="text" name="search" placeholder="Makale Ara">
+            </div>
+            <div class="control">
+              <button class="button is-info is-small" type="submit">
+                Ara
+                </a>
+            </div>
+          </div>
+        </form>
+      </div>
       <a class="navbar-item" href="{{ route('index') }}">
         Anasayfa
       </a>
@@ -75,6 +89,23 @@
     </div>
   </div>
 </nav>
+<div class="container mt-4 is-hidden-desktop">
+  <div style="display:flex; justify-content:center">
+    <form method="POST" action="{{ route('article.search') }}">
+      @csrf
+      <div class="field has-addons">
+        <div class="control">
+          <input class="input is-small" type="text" name="search" placeholder="Makale Ara">
+        </div>
+        <div class="control">
+          <button class="button is-info is-small" type="submit">
+            Ara
+            </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
 <!-- end of top navigation -->
 

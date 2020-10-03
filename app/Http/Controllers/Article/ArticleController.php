@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Article;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Article;
-use App\Models\Comment;
 use Illuminate\Http\Request;
+use MeiliSearch\Endpoints\Indexes;
 use App\Http\Controllers\Controller;
-use PhpParser\ErrorHandler\Collecting;
-use App\Http\Requests\ArticleCreateFormRequest;
+
 
 class ArticleController extends Controller
 {
@@ -18,16 +17,21 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function search(Request $request)
+    {
+        // MeiliSearch is typo-tolerant:
+        $articles = Article::search($request->search)->paginate();
+        return view('article.index', compact('articles'));
+        // Or if you want to get the result from meilisearch:
+    }
+
     public function index()
     {
-        if($requestTag = request('tag'))
-        {
+        if ($requestTag = request('tag')) {
             $tag = Tag::where('slug', $requestTag)->firstOrFail();
             $articles = $tag->articles()->with('tags')->get();
             return view('article.index', compact('articles', 'tag'));
-        } 
-        elseif (request('user'))
-        {
+        } elseif (request('user')) {
             $user = User::where('username', request('user'))->firstOrFail();
             $articles = $user->articles()->with('tags')->get();
             return view('article.index', compact('articles', 'user'));

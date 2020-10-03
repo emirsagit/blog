@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Administrator\AdminAdministratorController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::resource('article', ArticleController::class);
+Route::post('article/search', [ArticleController::class, 'search'])->name('article.search');
 Route::resource('contact', ContactController::class);
 Route::resource('user', UserController::class);
 Route::resource('me', MeController::class);

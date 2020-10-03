@@ -11,10 +11,13 @@
         "php": "^7.3",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.1",
+        "http-interop/http-factory-guzzle": "^1.0",
         "laravel/framework": "^8.0",
+        "laravel/scout": "^8.3",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^3.0"
+        "laravel/ui": "^3.0",
+        "meilisearch/meilisearch-laravel-scout": "^0.12.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
