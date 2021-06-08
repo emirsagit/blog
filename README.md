@@ -20,7 +20,7 @@ Projeyi çalıştırmak için aşağıdaki adımları sırayla uygulayınız.
 ```composer install```
 ```npm install```
 ```php artisan key:generate```
-```cp .env.exempla .env```
+```cp .env.exemple .env```
 
 2. .env'yi açın. Database bilgilerinizi doğru olarak girin.
 
@@ -28,9 +28,9 @@ Projeyi çalıştırmak için aşağıdaki adımları sırayla uygulayınız.
 
 4. Tarayıcı ile /register sayfasına giderek üyeliğinizi oluşturun.
 
-5. mysql ya da arzu ettiğiniz database yönetim programını kullanarak users tablosunda üyelik oluşturduğunuz kişiyi bularak role_id satırına 3 (super admin) yazın ve kaydedin.
+5. Phpmyadmin ya da arzu ettiğiniz database yönetim programını kullanarak users tablosunda üyelik oluşturduğunuz kişiyi bularak role_id satırına '3' yazın ve kaydedin. (Super admin yetkisi için)
 
-6. tarayızı ile /admin sayfasına giderek sitenizi yönetebilirsiniz.
+6. Tarayıcı ile /admin sayfasına giderek sitenizi yönetebilirsiniz.
 
 ## Authors
 
